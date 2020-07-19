@@ -1,8 +1,9 @@
-
+import os
 
 class Config:
-    pass
-
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moring:Access@localhost/blogs'
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SECRET_KEY = '~\xb4\xc2\xff\x9fuZ\xa4D\xbe\x7f\xca'
 
 class ProdConfig(Config):
     pass
