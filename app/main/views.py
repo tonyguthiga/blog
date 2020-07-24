@@ -45,6 +45,32 @@ def post(id):
                           post=post)
         db.session.add(comment)
         db.session.commit()
-        flash('Your comment has been published.')
+        flash('Your comment has been published.', 'success')
         return redirect(url_for('.index', id=post.id))
     return render_template('comment.html', post=post, comment_form=comment_form)
+
+@main.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author:
+       abort(403)
+    post_form = PostForm()
+    if post_form.validate_on_submit():
+        post.body = post_form.body.data
+        db.session.add(post)
+        flash('The post has been updated.')
+        return redirect(url_for('.user', username=current_user.username))
+    post_form.body.data = post.body
+    return render_template('edit_post.html', post_form=post_form)
+
+@main.route('/edit/<int:id>/delete', methods=['POST'])
+@login_required
+def delete_post(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author:
+       abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted!', 'success')
+    return redirect(url_for('.user', username=current_user.username))
