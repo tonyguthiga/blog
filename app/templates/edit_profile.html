@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block title %}The Blog - Edit Profile{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <div class="col-md-4">
+        {{ wtf.quick_form(profile_form) }}
+    </div> 
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+
+    {% for post in posts %}
+<div class="container mx-2px">
+    <div class="row">
+        <div class="col-sm-4 profile-thumbnail">
+            <a href="{{ url_for('.user', username=post.author.username) }}">
+                <img class="mx-2px" src="https://avatars0.githubusercontent.com/u/16845163?s=88&v=4" height="100px" width="100px">
+            </a>
+        </div>
+        <div class="col-sm-8 post-author">
+            <a href="{{ url_for('.user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>
+        </div>
+        <div class="post-body">{{ post.body }}</div>
+    </div>
+    
+</div>
+    {% endfor %}

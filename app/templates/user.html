@@ -5,7 +5,21 @@
 {% block page_content %}
 <div class="container">
     <div class="page-header">
-        <h1>Hello, {{ name|capitalize }}!</h1>
+        <h1> {{ user.username|capitalize }}</h1>
+
+        <!--Display user about_me-->
+        {% if user.about_me %}
+            <p>{{ user.about.me }}</p>
+        {% else %}
+            <p> {{ user.username|capitalize }} has no about me</p>
+        {% endif %}
+
+        <!--Profile editing link-->
+        {% if user == current_user %}
+        <a class="btn btn-default" href="{{ url_for('.edit_profile') }}"> Edit Profile</a>
+        {% endif %}
+        <h3>Posts by {{ user.username }}</h3>
+        {% include '_posts.html' %}
     </div>
 </div>
 
